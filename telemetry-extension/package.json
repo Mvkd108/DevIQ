@@ -1,0 +1,128 @@
+{
+  "name": "developer-intelligence",
+  "displayName": "DevHouse Telemetry",
+  "description": "Local-first commit telemetry and transparency for DevHouse",
+  "version": "0.0.1",
+  "publisher": "devhouse",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "devhouse.showTransparencyCenter",
+        "title": "DevHouse: Open Transparency Center"
+      },
+      {
+        "command": "devhouse.showSessionSummary",
+        "title": "DevHouse: Show Session Summary"
+      },
+      {
+        "command": "devhouse.showDataCollectionStatus",
+        "title": "DevHouse: Show Data Status"
+      },
+      {
+        "command": "devhouse.showActiveIssue",
+        "title": "DevHouse: Show Active Issue"
+      },
+      {
+        "command": "devhouse.manageTrackingSettings",
+        "title": "DevHouse: Manage Tracking Settings"
+      },
+      {
+        "command": "devhouse.openDevHouseSettings",
+        "title": "DevHouse: Open DevHouse Settings"
+      },
+      {
+        "command": "devhouse.configureSupabaseCredentials",
+        "title": "DevHouse: Configure Supabase Credentials"
+      },
+      {
+        "command": "devhouse.resetSessionState",
+        "title": "DevHouse: Reset Local Session State"
+      },
+      {
+        "command": "devhouse.selectJiraIssue",
+        "title": "DevHouse: Select Active Jira Issue"
+      }
+    ],
+    "configuration": {
+      "title": "DevHouse Transparency And Tracking",
+      "properties": {
+        "devintel.supabaseUrl": {
+            "type": "string",
+            "default": "",
+            "order": 10,
+            "markdownDescription": "**DEPRECATED - DO NOT USE**: Supabase credentials are now stored securely. Use `DevHouse: Configure Supabase Credentials` command instead. This setting is only checked for migration purposes.",
+            "deprecationMessage": "Use 'DevHouse: Configure Supabase Credentials' command instead. Credentials are now stored in secure storage."
+        },
+        "devintel.supabaseKey": {
+            "type": "string",
+            "default": "",
+            "order": 11,
+            "markdownDescription": "**DEPRECATED - DO NOT USE**: Supabase credentials are now stored securely. Use `DevHouse: Configure Supabase Credentials` command instead. This setting is only checked for migration purposes.",
+            "deprecationMessage": "Use 'DevHouse: Configure Supabase Credentials' command instead. Credentials are now stored in secure storage."
+        },
+        "devintel.developerId": {
+          "type": "string",
+          "default": "",
+          "order": 12,
+          "description": "Optional. Developer identifier attached to commit events. Leave blank to use your local OS username."
+        },
+        "devintel.repositoryName": {
+          "type": "string",
+          "default": "",
+          "order": 13,
+          "description": "Optional. Fallback repository name used only when Git metadata cannot provide one."
+        },
+        "devintel.telemetryEnabled": {
+          "type": "boolean",
+          "default": true,
+          "order": 1,
+          "markdownDescription": "Optional. Default: enabled. Allows DevHouse to prepare and upload commit telemetry on commit events. When disabled, DevHouse stays local-only and no commit uploads are prepared."
+        },
+        "devintel.presenceEnabled": {
+          "type": "boolean",
+          "default": false,
+          "order": 2,
+          "markdownDescription": "Optional. Default: **disabled**. Allows local webcam presence checks for the current session. **Requires explicit consent on first use**. Raw camera frames are **not** uploaded; only summary counts can be attached to a commit event when commit upload is enabled and configured."
+        },
+        "devintel.backgroundMonitoringEnabled": {
+          "type": "boolean",
+          "default": true,
+          "order": 3,
+          "markdownDescription": "Optional. Default: enabled. Allows local tracking of **whitelisted** background applications for the current session. Only app names and time-seen summaries can be attached to a commit event when commit upload is enabled and configured."
+        },
+        "devintel.showStatusBarSummary": {
+          "type": "boolean",
+          "default": true,
+          "order": 4,
+          "markdownDescription": "Optional. Default: enabled. Shows a compact DevHouse summary in the VS Code status bar. Clicking it opens the transparency center."
+        },
+        "devintel.pythonCommand": {
+          "type": "string",
+          "default": "",
+          "order": 14,
+          "description": "Optional. Python launcher used for local presence checks, for example 'py' or 'python'. Leave blank to auto-detect."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "18.x",
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.1.3"
+  }
+}

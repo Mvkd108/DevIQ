@@ -1,0 +1,22 @@
+{
+  "name": "devhouse26-dashboard",
+  "version": 2,
+  "builds": [
+    {
+      "src": "Manager_Dashboard/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "Manager_Dashboard/dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/Manager_Dashboard/dist/$1"
+    }
+  ],
+  "env": {
+    "VITE_API_BASE_URL": "@devhouse_api_url"
+  }
+}
